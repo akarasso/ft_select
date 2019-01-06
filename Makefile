@@ -2,11 +2,14 @@ CC	= gcc
 
 CFLAGS	= -Wall -Werror -Wextra
 
-NAME	= select
+NAME	= test
 
 HEADERS	= ./includes ./libft/includes
 
-SOURCES	=
+SOURCES	= ./srcs/ft_catch_signal.c	./srcs/ft_check_termcaps.c	./srcs/ft_clear_exit.c			\
+	./srcs/ft_err.c			./srcs/ft_fullscreen.c		./srcs/ft_init_sreen.c			\
+	./srcs/ft_init_term.c		./srcs/ft_putint.c		./srcs/ft_resize_win.c			\
+	./srcs/main.c			
 
 OBJ	= $(SOURCES:.c=.o)
 
@@ -14,13 +17,13 @@ HEADER_LIST	= $(addprefix -I,$(HEADERS))
 
 all	: $(NAME)
 
-makelib	:
+makelib	: 
 	make -C libft/
 
-cleanlib	:
+cleanlib	: 
 	make clean -C libft/
 
-fcleanlib	:
+fcleanlib	: 
 	make fclean -C libft/
 
 %.o	: %.c $(HEADERS)
@@ -28,7 +31,7 @@ fcleanlib	:
 
 $(NAME)	: $(OBJ)
 	make -C libft/
-	$(CC) $(CFLAGS) $(HEADER_LIST) -o $(NAME) $(OBJ) ./libft/libft.a -ltermcap
+	$(CC) $(CFLAGS) $(HEADER_LIST) -o $(NAME) $(OBJ) ./libft/libft.a
 
 clean	: cleanlib
 	rm -f $(OBJ)
@@ -37,3 +40,4 @@ re	: fcleanlib fclean all
 
 fclean	: cleanlib clean
 	rm -f $(NAME)
+

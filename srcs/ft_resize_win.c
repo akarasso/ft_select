@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_resize_win.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akarasso <akarasso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/05 16:41:30 by akarasso          #+#    #+#             */
-/*   Updated: 2019/01/05 16:46:43 by akarasso         ###   ########.fr       */
+/*   Created: 2019/01/06 17:54:38 by akarasso          #+#    #+#             */
+/*   Updated: 2019/01/06 19:44:25 by akarasso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	errorFormat(int line, char *file, char *reason)
+#include "ft_select.h"
+
+void	ft_resize_win(int s)
 {
-	ft_putstr_fd("'", 2);
-	ft_putstr_fd(file, 2);
-	ft_putstr_fd("' ", 2);
-	ft_putstr_fd("Error line ", 2);
-	ft_putnbr_fd(line, 2);
-	ft_putstr_fd(" ", 2);
-	ft_putstr_fd(reason, 2);
-	ft_putendl();
+	t_select	*select;
+	(void)s;
+	select = ft_get_select();
+	select->win.width = tgetnum("co");
+	select->win.height = tgetnum("li");
 }
