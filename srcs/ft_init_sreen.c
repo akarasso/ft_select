@@ -12,10 +12,8 @@
 
 #include "ft_select.h"
 
-int		init_screen_size(t_select *select)
+int		ft_init_sreen(t_select *select)
 {
-	char *tmp;
-
 	select->win.width = tgetnum("co");
 	select->win.height = tgetnum("li");
 	return (1);

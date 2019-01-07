@@ -12,6 +12,13 @@
 
 #include "ft_select.h"
 
+void	ft_reset_term(t_select *select)
+{
+	tcsetattr(STDOUT_FILENO, TCSANOW, &select->term_saved);
+	tputs(tgetstr("ve", NULL), 1, ft_putint);
+	tputs(tgetstr("te", NULL), 1, ft_putint);
+}
+
 int		ft_init_term(t_select *select)
 {
 	int		ret;
@@ -28,10 +35,8 @@ int		ft_init_term(t_select *select)
 		return (0);
 	}
 	select->term_saved = select->term;
-	select->term.c_lflag &= ~(ICANON);
-	select->term.c_lflag &= ~(ECHO);
+	select->term.c_lflag &= ~(ICANON | ECHO);
 	select->term.c_cc[VMIN] = 1;
 	select->term.c_cc[VTIME] = 0;
-	select->term.c_cc[VINTR] = 0;
-	return (check_termcaps(select));
+	return (ft_check_termcaps());
 }

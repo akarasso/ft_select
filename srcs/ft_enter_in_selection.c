@@ -10,11 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_fullscreen()
+#include "ft_select.h"
+
+void	ft_enter_in_selection()
 {
-	t_select	*select;
+	t_select *select;
 
 	select = ft_get_select();
+	tcsetattr(STDOUT_FILENO, TCSANOW, &select->term);
 	tputs(tgetstr("vi", 0), 1, ft_putint);
 	tputs(tgetstr("ti", 0), 1, ft_putint);
 }

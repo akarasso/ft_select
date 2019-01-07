@@ -12,14 +12,39 @@
 
 #include "ft_select.h"
 
-void	ft_stop(int s)
+static void	suspend_signal_handler(void)
 {
-	(void)s;
+	ft_reset_term(ft_get_select());
+	signal(SIGTSTP, SIG_DFL);
 }
 
-void 	ft_resume(int s)
+void 	stop_signal_handler(void)
 {
-	(void)s;
+	ft_reset_term(ft_get_select());
+	exit(1);
+}
+
+void		signal_handler(int signo)
+{
+	t_select *select;
+
+	select = ft_get_select();
+	if (signo == SIGTSTP)
+		suspend_signal_handler();
+	else if (signo == SIGINT || signo == SIGABRT
+		|| signo == SIGSTOP || signo == SIGKILL || signo == SIGQUIT)
+		stop_signal_handler();
+	else if (signo == SIGCONT)
+	{
+		ft_init_term(select);
+		ft_init_sreen(select);
+		ft_display(select);
+	}
+	else if (signo == SIGWINCH)
+	{
+		ft_init_sreen(select);
+		ft_display(select);
+	}
 }
 
 /*
@@ -29,14 +54,14 @@ void 	ft_resume(int s)
 */
 void	ft_catch_signal()
 {
-	signal(SIGHUP, ft_clear_exit);
-	signal(SIGINT, ft_clear_exit);
-	signal(SIGTERM, ft_clear_exit);
-	signal(SIGTSTP, ft_stop);
-	signal(SIGCONT, ft_resume);
-	signal(SIGTTIN, ft_clear_exit);
-	signal(SIGTTOU, ft_clear_exit);
-	signal(SIGXCPU, ft_clear_exit);
-	signal(SIGPROF, ft_clear_exit);
-	signal(SIGWINCH, ft_resize_win);
+	signal(SIGWINCH, signal_handler);
+	signal(SIGHUP, signal_handler);
+	signal(SIGINT, signal_handler);
+	signal(SIGTTOU, signal_handler);
+	signal(SIGPROF, signal_handler);
+	signal(SIGTSTP, signal_handler);
+	signal(SIGCONT, signal_handler);
+	signal(SIGTTIN, signal_handler);
+	signal(SIGTERM, signal_handler);
+	signal(SIGXCPU, signal_handler);
 }
