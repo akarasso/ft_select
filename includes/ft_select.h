@@ -6,7 +6,7 @@
 /*   By: akarasso <akarasso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/05 15:03:07 by akarasso          #+#    #+#             */
-/*   Updated: 2019/01/06 19:43:54 by akarasso         ###   ########.fr       */
+/*   Updated: 2019/01/07 18:29:58 by akarasso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 # define SELECT		1
 # define UNLOCK		0
 # define LOCK		1
+# define SHOW		0
+# define HIDE		1
+
 
 # define SHOWTOUCH_BUFFSIZE 8
 # define COUNT_OF(ptr) (sizeof(ptr) / sizeof((ptr)[0]))
@@ -41,6 +44,7 @@ typedef struct	s_opt
 	int			namelen;
 	int			state;
 	char		lock;
+	char		visibility;
 }				t_opt;
 
 typedef struct	s_win
