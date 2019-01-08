@@ -6,21 +6,11 @@
 /*   By: akarasso <akarasso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/05 15:03:39 by akarasso          #+#    #+#             */
-/*   Updated: 2019/01/06 18:34:34 by akarasso         ###   ########.fr       */
+/*   Updated: 2019/01/08 19:30:27 by akarasso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
-
-int		catch_input_extra(t_opt	*file)
-{
-	if (!lstat(file->pathname, &file->stat))
-	{
-
-	}
-	(void)file;
-	return (0);
-}
 
 int		catch_input(t_select *select, t_dlst *lst, char **argv)
 {
@@ -36,11 +26,12 @@ int		catch_input(t_select *select, t_dlst *lst, char **argv)
 			return (0);
 		if ((uint)(curr->namelen = ft_strlen(curr->name)) + 2 > select->win.cols)
 			select->win.padding = curr->namelen + 2;
-		if (!access(curr->name, F_OK))
-			catch_input_extra(curr);
 		ft_dlst_pushback(lst, curr);
 		argv++;
 	}
+	ft_putnbr(select->win.padding);
+	printf("\n");
+	getchar();
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: akarasso <akarasso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/05 15:03:07 by akarasso          #+#    #+#             */
-/*   Updated: 2019/01/07 18:29:58 by akarasso         ###   ########.fr       */
+/*   Updated: 2019/01/08 18:26:28 by akarasso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include "libft.h"
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <dirent.h>
 
 # define UNSELECT	0
 # define SELECT		1
@@ -62,6 +63,8 @@ typedef struct	s_select
 	t_dlst			*ptr_options;
 	t_dlst_elem		*ptr_elem;
 	t_win			win;
+	char			search_mode;
+	char			*search;
 	struct termios	term;
 	struct termios	term_saved;
 	int				nselect;
@@ -83,10 +86,13 @@ int			ft_init_term(t_select *select);
 int			ft_read_key(t_select *select);
 void		ft_enter_in_selection();
 void		ft_display(t_select *select);
+void		ft_toolbar(t_select *select);
 int			ft_init_sreen(t_select *select);
 void		ft_free_opt(void *data);
 void		ft_reset_term(t_select *select);
-
+t_dlst_elem	*ft_select_next(t_dlst *container, t_dlst_elem *elem, int n);
+t_dlst_elem	*ft_select_prev(t_dlst *container, t_dlst_elem *elem, int n);
+int			catch_input(t_select *select, t_dlst *lst, char **argv);
 
 /*
 **	Function
@@ -94,7 +100,7 @@ void		ft_reset_term(t_select *select);
 int		ft_print_key(unsigned char *b, t_select *select);
 int		ft_enter(unsigned char *b, t_select *select);
 int		ft_down_arrow(unsigned char *b, t_select *select);
-int		ft_goto(unsigned char *b, t_select *select);
+int		ft_open_select(unsigned char *b, t_select *select);
 int		ft_left_arrow(unsigned char *b, t_select *select);
 int		ft_research(unsigned char *b, t_select *select);
 int		ft_right_arrow(unsigned char *b, t_select *select);

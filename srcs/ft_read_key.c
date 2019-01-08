@@ -7,6 +7,7 @@ static const t_func	g_func[] = {
 	{ft_up_arrow},
 	{ft_space},
 	{ft_backspace},
+	{ft_open_select},
 	{ft_print_key},
 };
 

@@ -2,19 +2,12 @@
 
 int		ft_up_arrow(unsigned char *b, t_select *select)
 {
-	uint cols;
+	t_dlst_elem *prev;
 
 	if (b[0] == 27 && b[1] == 91 && b[2] == 65 && !b[3])
 	{
-		cols = select->win.cols;
-		while (cols)
-		{
-			if (select->ptr_elem->prev)
-				select->ptr_elem = select->ptr_elem->prev;
-			else
-				select->ptr_elem = select->ptr_options->first;
-			cols--;
-		}
+		prev = ft_select_prev(select->ptr_options, select->ptr_elem, select->win.cols);
+		select->ptr_elem = prev;
 		return (1);
 	}
 	return (0);

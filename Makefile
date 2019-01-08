@@ -22,13 +22,16 @@ SOURCES	= ./srcs/ft_catch_signal.c \
 	./srcs/key_handler/ft_up_arrow.c \
 	./srcs/key_handler/ft_left_arrow.c \
 	./srcs/key_handler/ft_right_arrow.c \
-	./srcs/key_handler/ft_goto.c \
+	./srcs/key_handler/ft_open_select.c \
 	./srcs/key_handler/ft_enter.c \
 	./srcs/key_handler/ft_space.c \
 	./srcs/key_handler/ft_research.c \
 	./srcs/key_handler/ft_backspace.c \
 	./srcs/key_handler/ft_escape.c \
 	./srcs/display/ft_display.c \
+	./srcs/display/ft_select_next.c \
+	./srcs/display/ft_select_prev.c \
+	./srcs/display/ft_toolbar.c \
 	./srcs/main.c
 
 OBJ	= $(SOURCES:.c=.o)

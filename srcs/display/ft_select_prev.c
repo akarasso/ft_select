@@ -6,7 +6,7 @@
 /*   By: akarasso <akarasso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 18:56:34 by akarasso          #+#    #+#             */
-/*   Updated: 2019/01/07 18:56:41 by akarasso         ###   ########.fr       */
+/*   Updated: 2019/01/08 17:20:39 by akarasso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,17 @@ t_dlst_elem	*ft_select_prev(t_dlst *container, t_dlst_elem *elem, int n)
 	t_opt			*opt;
 
 	from = elem;
-	elem = elem->prev ? elem->prev : container->first;
+	elem = elem->prev ? elem->prev : container->last;
 	while (elem != from)
 	{
 		opt = elem->data;
 		if (opt->visibility == SHOW)
-			break;
-		elem = elem->prev ? elem->next : container->first;
+		{
+			n--;
+			if (!n)
+				break;
+		}
+		elem = elem->prev ? elem->prev : container->last;
 	}
-	if (elem == from)
-		return (0x0);
 	return (elem);
 }

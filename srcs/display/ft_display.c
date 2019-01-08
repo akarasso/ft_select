@@ -52,14 +52,11 @@ void	ft_display(t_select *select)
 	select->win.rows = select->ptr_options->len / select->win.cols;
 	if (select->ptr_options->len % select->win.cols)
 		select->win.rows++;
-	// printf("%u\n", select->win.width);
-	// printf("%u\n", select->win.height);
-	// printf("%u\n", select->win.rows);
-	// printf("%u\n", select->lst->len);
-	// printf("%u\n", select->win.cols);
-	// printf("%u\n", select->win.padding);
 	if (select->win.rows > select->win.height)
 		ft_putstr("...");
 	else
+	{
 		ft_display_args(select, select->ptr_options->first);
+		ft_toolbar(select);
+	}
 }
