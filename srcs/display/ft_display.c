@@ -2,61 +2,80 @@
 
 void	calc_cols(t_select *select)
 {
-	if ((select->win.padding + 3) * select->ptr_options->len < select->win.width)
-		select->win.cols = select->ptr_options->len;
-	else
-	{
-		select->win.cols = select->win.width / (select->win.padding + 3);
-		if (!select->win.cols)
-			select->win.cols = 1;
-	}
+	t_opt	*opt;
+
+	opt = select->ptr_opt;
+	select->win.cols = select->win.width / opt->padding;
+	if (!select->win.cols)
+		select->win.cols++;
 }
 
-void	ft_display_args_value(t_select *select, t_opt *opt)
+int		ft_display_args_value(t_select *select, t_opt *opt, t_file *file, size_t cursor)
 {
-	uint	padding;
+	size_t	padding;
 
-	padding = opt->namelen;
-	if (opt->state == SELECT)
+	if (file->mode & HIDE)
+	{
+		ft_putstr(RESET);
+		return (0);
+	}
+	padding = file->namelen;
+	if (file->mode & SELECT)
 		ft_putstr(REVCOLOR);
-	ft_putstr(opt->name);
+	ft_putstr(file->color);
+	ft_putstr(file->name);
 	ft_putstr(RESET);
-	while (padding < select->win.padding)
+	while (padding < opt->padding && (cursor + padding) < select->win.width)
 	{
 		ft_putchar(' ');
 		padding++;
 	}
+	return (1);
 }
 
-void	ft_display_args(t_select *select, t_dlst_elem *elem)
+void	ft_display_args(t_select *select, t_opt *opt, t_dlst *files)
 {
-	uint	n;
+	size_t		n;
+	size_t		cursor;
+	t_dlst_elem	*file;
 
-	while (elem)
+	file = files->first;
+	n = 0;
+	cursor = 0;
+	while (file)
 	{
-		n = 0;
-		if (elem == select->ptr_elem)
+		if (file == select->ptr_elem)
 			ft_putstr(UNDERLINED);
-		ft_display_args_value(select, elem->data);
-		elem = elem->next;
-		n++;
-		if (n == select->win.cols)
-			ft_putchar('\n');
+		if (ft_display_args_value(select, opt, file->data, cursor))
+		{
+			n++;
+			if (!(n % select->win.cols))
+			{
+				cursor = 0;
+				ft_putchar('\n');
+			}
+		}
+		file = file->next;
 	}
 }
 
 void	ft_display(t_select *select)
 {
-	tputs(tgetstr("cl", NULL), 1, ft_putint);
+	int	row_toolbar;
+
+	tputs(tgetstr("cl", 0x0), 1, ft_putint);
+	if (select->mode == HELP_MOD)
+		return ft_display_help(select);
 	calc_cols(select);
-	select->win.rows = select->ptr_options->len / select->win.cols;
-	if (select->ptr_options->len % select->win.cols)
+	select->win.rows = select->ptr_opt->files->len / select->win.cols;
+	if (select->ptr_opt->files->len % select->win.cols)
 		select->win.rows++;
-	if (select->win.rows > select->win.height)
+	row_toolbar = ft_toolbar_len(select);
+	if (select->win.rows > select->win.height - row_toolbar)
 		ft_putstr("...");
 	else
 	{
-		ft_display_args(select, select->ptr_options->first);
+		ft_display_args(select, select->ptr_opt, select->ptr_opt->files);
 		ft_toolbar(select);
 	}
 }

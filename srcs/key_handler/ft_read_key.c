@@ -1,19 +1,23 @@
 #include "ft_select.h"
 
 static const t_func	g_func[] = {
+	{ft_backspace},
+	{ft_research},
+	{ft_enter},
 	{ft_left_arrow},
 	{ft_right_arrow},
 	{ft_down_arrow},
 	{ft_up_arrow},
 	{ft_space},
-	{ft_backspace},
 	{ft_open_select},
+	{ft_escape},
+	{ft_help},
 	{ft_print_key},
 };
 
 int		get_key(unsigned char *buf)
 {
-	ft_bzero(buf, SHOWTOUCH_BUFFSIZE);
+	ft_bzero(buf, SHOWTOUCH_BUFFSIZE + 1);
 	if (read(STDIN_FILENO, buf, SHOWTOUCH_BUFFSIZE) < 0)
 	{
 		ft_err(__LINE__, __FILE__, "Read: Fail to read from STDIN_FILENO");
@@ -24,10 +28,10 @@ int		get_key(unsigned char *buf)
 
 int			ft_read_key(t_select *select)
 {
-	unsigned char	buf[SHOWTOUCH_BUFFSIZE];
-	uint			index;
+	unsigned char	buf[SHOWTOUCH_BUFFSIZE + 1];
+	size_t			index;
 
-	while (select->ptr_elem)
+	while (!select->stop)
 	{
 		ft_display(select);
 		index = 0;
@@ -35,7 +39,6 @@ int			ft_read_key(t_select *select)
 			return (0);
 		while (index < COUNT_OF(g_func) && !g_func[index].exec(buf, select))
 			index++;
-		// getchar();
 	}
 	return (1);
 }

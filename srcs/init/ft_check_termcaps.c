@@ -64,8 +64,8 @@ int		check_cursor()
 
 int		ft_check_termcaps()
 {
-	if (!check_cursor()) {
-		/* code */
-	}
+	if (!check_cursor()
+		|| !check_screen())
+		return (0);
 	return (1);
 }

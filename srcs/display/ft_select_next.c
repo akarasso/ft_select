@@ -12,21 +12,23 @@
 
 #include "ft_select.h"
 
-t_dlst_elem	*ft_select_next(t_dlst *container, t_dlst_elem *elem, int n)
+t_dlst_elem	*ft_select_next(t_dlst *container, t_dlst_elem *elem, size_t n)
 {
 	t_dlst_elem		*from;
-	t_opt			*opt;
+	t_file			*file;
 
+	if (!elem)
+		elem = container->first;
 	from = elem;
 	elem = elem->next ? elem->next : container->first;
 	while (elem && elem != from)
 	{
-		opt = elem->data;
-		if (opt->visibility == SHOW)
+		file = elem->data;
+		if (!(file->mode & HIDE))
 		{
 			n--;
 			if (!n)
-				break;
+				return (elem);
 		}
 		elem = elem->next ? elem->next : container->first;
 	}

@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_fullscreen.c                                    :+:      :+:    :+:   */
+/*   ft_resize_win.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akarasso <akarasso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/06 18:36:12 by akarasso          #+#    #+#             */
-/*   Updated: 2019/01/06 18:37:34 by akarasso         ###   ########.fr       */
+/*   Created: 2019/01/06 17:54:38 by akarasso          #+#    #+#             */
+/*   Updated: 2019/01/06 19:44:25 by akarasso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
+#include <sys/ioctl.h>
 
-void	ft_enter_in_selection()
+void	ft_resize_win(int s)
 {
-	t_select *select;
+	t_select		*select;
+	struct winsize	wsize;
 
+	(void)s;
 	select = ft_get_select();
-	tcsetattr(STDOUT_FILENO, TCSANOW, &select->term);
-	tputs(tgetstr("vi", 0), 1, ft_putint);
-	tputs(tgetstr("ti", 0), 1, ft_putint);
+	ioctl(STDERR_FILENO, TIOCGWINSZ, &wsize);
+	select->win.width = wsize.ws_col;
+	select->win.height = wsize.ws_row;
+	ft_display(select);
 }

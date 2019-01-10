@@ -11,24 +11,29 @@
 /* ************************************************************************** */
 
 #include "ft_select.h"
+#include <sys/ioctl.h>
 
 static void	suspend_signal_handler(void)
 {
 	ft_reset_term(ft_get_select());
 	signal(SIGTSTP, SIG_DFL);
+	ioctl(STDERR_FILENO, TIOCSTI, "\x1A");
 }
 
 void 	stop_signal_handler(void)
 {
-	ft_reset_term(ft_get_select());
-	exit(1);
+	t_select *select;
+
+	select = ft_get_select();
+	ft_reset_term(select);
+	ft_free_args(select);
+	exit(0);
 }
 
 void		signal_handler(int signo)
 {
 	t_select *select;
 
-	select = ft_get_select();
 	if (signo == SIGTSTP)
 		suspend_signal_handler();
 	else if (signo == SIGINT || signo == SIGABRT
@@ -36,22 +41,17 @@ void		signal_handler(int signo)
 		stop_signal_handler();
 	else if (signo == SIGCONT)
 	{
+		select = ft_get_select();
 		ft_init_term(select);
-		ft_init_sreen(select);
+		ft_init_screen(select);
+		ft_init_selection();
+		ft_catch_signal(select);
 		ft_display(select);
 	}
 	else if (signo == SIGWINCH)
-	{
-		ft_init_sreen(select);
-		ft_display(select);
-	}
+		ft_resize_win(SIGWINCH);
 }
 
-/*
-**	SIGXCPU => CPU time limit exceeded
-**	SIGPROF => Profiling timer expired
-**	SIGWINCH => Redim
-*/
 void	ft_catch_signal()
 {
 	signal(SIGWINCH, signal_handler);

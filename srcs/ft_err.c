@@ -21,5 +21,5 @@ void	ft_err(int line, char *file, char *reason)
 	ft_putnbr_fd(line, 2);
 	ft_putstr_fd(" ", 2);
 	ft_putstr_fd(reason, 2);
-	ft_putendl("");
+	ft_putstr_fd("\n", 2);
 }

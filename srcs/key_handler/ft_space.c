@@ -3,22 +3,26 @@
 int		ft_space(unsigned char *b, t_select *select)
 {
 	t_dlst_elem	*next;
-	t_opt		*opt;
+	t_file		*file;
 
-	if (b[0] == 32 && b[1] == 0 && select->ptr_elem && select->ptr_elem->data)
+	if (b[0] == 32 && b[1] == 0 && select->ptr_elem && select->ptr_elem->data
+		&& select->mode == SELECT_MOD)
 	{
-		opt = select->ptr_elem->data;
-		if (opt->state == SELECT)
+		file = select->ptr_elem->data;
+		if (select->ptr_opt->parent && (!ft_strcmp(file->name, "..")
+			|| (file->mode & HIDE) || (file->mode & LOCK)))
+			return (1);
+		if (file->mode & SELECT)
 		{
 			select->nselect--;
-			opt->state = UNSELECT;
+			file->mode &= (0xFF ^ SELECT);
 		}
 		else
 		{
 			select->nselect++;
-			opt->state = SELECT;
+			file->mode |= SELECT;
 		}
-		next = ft_select_next(select->ptr_options, select->ptr_elem, 1);
+		next = ft_select_next(select->ptr_opt->files, select->ptr_elem, 1);
 		select->ptr_elem = next;
 		return (1);
 	}
