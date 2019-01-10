@@ -6,7 +6,7 @@
 /*   By: akarasso <akarasso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/05 15:03:07 by akarasso          #+#    #+#             */
-/*   Updated: 2019/01/08 18:26:28 by akarasso         ###   ########.fr       */
+/*   Updated: 2019/01/10 10:02:41 by akarasso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_opt		*ft_create_option(char *path, t_opt *parent);
 t_file		*ft_option_add(t_opt *opt, char *root, char *name);
 t_dlst_elem	*ft_select_next(t_dlst *container, t_dlst_elem *elem, size_t n);
 t_dlst_elem	*ft_select_prev(t_dlst *container, t_dlst_elem *elem, size_t n);
-void		ft_reset_mode(t_dlst *files, char mode);
+void		ft_reset_mode(t_dlst *files, int mode);
 
 
 /*

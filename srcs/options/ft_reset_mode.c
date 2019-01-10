@@ -1,6 +1,6 @@
 #include "ft_select.h"
 
-void	ft_reset_mode(t_dlst *files, char mode)
+void	ft_reset_mode(t_dlst *files, int mode)
 {
 	t_dlst_elem		*elem;
 	t_file			*file;

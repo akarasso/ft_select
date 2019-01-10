@@ -6,7 +6,7 @@
 /*   By: akarasso <akarasso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/05 15:03:39 by akarasso          #+#    #+#             */
-/*   Updated: 2019/01/08 19:30:27 by akarasso         ###   ########.fr       */
+/*   Updated: 2019/01/10 12:21:41 by akarasso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ t_select	*ft_get_select()
 
 int ft_usage(void)
 {
+	ft_putendl("Usage ft_select:");
+	ft_putendl("./ft_select args1 [args2]...");
 	return (0);
 }
 
