@@ -6,26 +6,11 @@
 /*   By: akarasso <akarasso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 12:33:28 by akarasso          #+#    #+#             */
-/*   Updated: 2019/01/10 13:16:57 by akarasso         ###   ########.fr       */
+/*   Updated: 2019/01/10 16:47:10 by akarasso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
-
-static const t_func	g_func[] = {
-	{ft_backspace},
-	{ft_research},
-	{ft_enter},
-	{ft_left_arrow},
-	{ft_right_arrow},
-	{ft_down_arrow},
-	{ft_up_arrow},
-	{ft_space},
-	{ft_open_select},
-	{ft_escape},
-	{ft_help},
-	{ft_print_key},
-};
 
 int			get_key(unsigned char *buf)
 {
@@ -40,8 +25,12 @@ int			get_key(unsigned char *buf)
 
 int			ft_read_key(t_select *select)
 {
-	unsigned char	buf[SHOWTOUCH_BUFFSIZE + 1];
-	size_t			index;
+	static unsigned char	buf[SHOWTOUCH_BUFFSIZE + 1];
+	size_t					index;
+	static t_func			g_func[] = {{ft_backspace}, {ft_research},
+		{ft_enter}, {ft_left_arrow}, {ft_right_arrow}, {ft_down_arrow},
+		{ft_up_arrow}, {ft_space}, {ft_open_select}, {ft_escape}, {ft_help},
+	};
 
 	while (!select->stop)
 	{

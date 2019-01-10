@@ -6,7 +6,7 @@
 /*   By: akarasso <akarasso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/05 15:03:39 by akarasso          #+#    #+#             */
-/*   Updated: 2019/01/10 15:10:48 by akarasso         ###   ########.fr       */
+/*   Updated: 2019/01/10 16:47:34 by akarasso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ int			ft_read_input(t_opt *opt, char **argv)
 
 t_select	*ft_get_select(void)
 {
-	static t_select select;
+	static t_select g_select;
 
-	return (&select);
+	return (&g_select);
 }
 
 int			ft_usage(void)
