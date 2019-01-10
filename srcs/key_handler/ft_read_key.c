@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_read_key.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akarasso <akarasso@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 12:33:28 by akarasso          #+#    #+#             */
+/*   Updated: 2019/01/10 13:16:57 by akarasso         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_select.h"
 
 static const t_func	g_func[] = {
@@ -15,7 +27,7 @@ static const t_func	g_func[] = {
 	{ft_print_key},
 };
 
-int		get_key(unsigned char *buf)
+int			get_key(unsigned char *buf)
 {
 	ft_bzero(buf, SHOWTOUCH_BUFFSIZE + 1);
 	if (read(STDIN_FILENO, buf, SHOWTOUCH_BUFFSIZE) < 0)

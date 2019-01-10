@@ -6,13 +6,13 @@
 /*   By: akarasso <akarasso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/06 18:19:45 by akarasso          #+#    #+#             */
-/*   Updated: 2019/01/06 19:46:49 by akarasso         ###   ########.fr       */
+/*   Updated: 2019/01/10 13:15:42 by akarasso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-int		check_screen()
+int		check_screen(void)
 {
 	if (!tgetstr("cl", 0x0))
 	{
@@ -37,7 +37,7 @@ int		check_screen()
 	return (1);
 }
 
-int		check_cursor()
+int		check_cursor(void)
 {
 	if (!tgetstr("vi", 0x0))
 	{
@@ -62,7 +62,7 @@ int		check_cursor()
 	return (1);
 }
 
-int		ft_check_termcaps()
+int		ft_check_termcaps(void)
 {
 	if (!check_cursor()
 		|| !check_screen())

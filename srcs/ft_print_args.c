@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_print_args.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akarasso <akarasso@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 12:24:40 by akarasso          #+#    #+#             */
+/*   Updated: 2019/01/10 12:25:20 by akarasso         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_select.h"
 
 void	ft_print_file(t_dlst_elem *elem)
@@ -19,7 +31,6 @@ void	ft_print_file(t_dlst_elem *elem)
 				ft_putstr("/");
 			}
 			ft_putstr(file->name);
-
 		}
 		if (file->subopt)
 			ft_print_opt(file->subopt);

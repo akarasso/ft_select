@@ -6,7 +6,7 @@
 /*   By: akarasso <akarasso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/05 15:39:20 by akarasso          #+#    #+#             */
-/*   Updated: 2019/01/06 18:23:54 by akarasso         ###   ########.fr       */
+/*   Updated: 2019/01/10 15:07:20 by akarasso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_reset_term(t_select *select)
 {
-	tcsetattr(STDOUT_FILENO, TCSANOW, &select->term_saved);
+	tcsetattr(STDERR_FILENO, TCSANOW, &select->term_saved);
 	tputs(tgetstr("ve", NULL), 1, ft_putint);
 	tputs(tgetstr("te", NULL), 1, ft_putint);
 }
@@ -26,7 +26,7 @@ int		ft_init_term(t_select *select)
 
 	if ((name = getenv("TERM")) == NULL || tgetent(NULL, name) == ERR)
 		return (0);
-	if ((ret = tcgetattr(0, &(select->term))) < 0)
+	if ((ret = tcgetattr(STDERR_FILENO, &(select->term))) < 0)
 	{
 		if (ret == 0)
 			ft_err(__LINE__, __FILE__, "Term: undefined");

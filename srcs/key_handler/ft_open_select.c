@@ -1,41 +1,49 @@
-#include "ft_select.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_open_select.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akarasso <akarasso@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 12:33:24 by akarasso          #+#    #+#             */
+/*   Updated: 2019/01/10 13:18:17 by akarasso         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-/*
-Touch:o
-*/
+#include "ft_select.h"
 
 t_opt	*ft_read_dir(t_select *select, char *path)
 {
-	DIR				*pDir;
+	DIR				*p_dir;
 	struct dirent	*ent;
-	t_opt			*newOpt;
-	t_file			*newFile;
+	t_opt			*new_opt;
+	t_file			*new_file;
 
-	if (!(pDir = opendir(path)))
+	if (!(p_dir = opendir(path)))
 		return (0x0);
-	if (!(newOpt = ft_create_option(path, select->ptr_opt)))
+	if (!(new_opt = ft_create_option(path, select->ptr_opt)))
 		return (0x0);
-	newFile = ft_option_add(newOpt, path, "..");
-	newFile->mode =  newFile->mode | LOCK;
-	while ((ent = readdir(pDir)) != NULL)
+	new_file = ft_option_add(new_opt, path, "..");
+	new_file->mode = new_file->mode | LOCK;
+	while ((ent = readdir(p_dir)) != NULL)
 	{
 		if (*ent->d_name != '.')
 		{
-			newFile = ft_option_add(newOpt, path, ent->d_name);
-			if (newFile->namelen + 2 > newOpt->padding)
-				newOpt->padding = newFile->namelen + 2;
-			ft_get_color(newFile);
+			new_file = ft_option_add(new_opt, path, ent->d_name);
+			if (new_file->namelen + 2 > new_opt->padding)
+				new_opt->padding = new_file->namelen + 2;
+			ft_get_color(new_file);
 		}
 	}
-	if (closedir(pDir) < 0)
+	if (closedir(p_dir) < 0)
 		ft_err(__LINE__, __FILE__, "Fail to closed dir");
-	return (newOpt);
+	return (new_opt);
 }
 
 void	ft_try_open_dir(t_select *select, t_file *file)
 {
 	char	*path;
-	t_opt			*newOpt;
+	t_opt	*new_opt;
 
 	if (!file->path)
 		path = ft_strdup(file->name);
@@ -44,12 +52,12 @@ void	ft_try_open_dir(t_select *select, t_file *file)
 	if (!access(path, F_OK) && !lstat(path, &file->stat))
 		if (S_ISDIR(file->stat.st_mode))
 		{
-			if ((newOpt = ft_read_dir(select, path)))
+			if ((new_opt = ft_read_dir(select, path)))
 			{
 				ft_reset_mode(select->ptr_opt->files, (0xFF ^ HIDE));
-				select->ptr_opt = newOpt;
-				select->ptr_elem = newOpt->files->first;
-				file->subopt = newOpt;
+				select->ptr_opt = new_opt;
+				select->ptr_elem = new_opt->files->first;
+				file->subopt = new_opt;
 			}
 		}
 	ft_strdel(&path);

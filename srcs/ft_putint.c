@@ -6,7 +6,7 @@
 /*   By: akarasso <akarasso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/06 18:37:43 by akarasso          #+#    #+#             */
-/*   Updated: 2019/01/06 18:38:12 by akarasso         ###   ########.fr       */
+/*   Updated: 2019/01/10 14:12:42 by akarasso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 int		ft_putint(int c)
 {
-	return write(1, &c, 1);
+	return (write(STDERR_FILENO, &c, 1));
 }

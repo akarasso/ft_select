@@ -1,5 +1,16 @@
-#include "ft_select.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_backspace.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akarasso <akarasso@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 12:32:58 by akarasso          #+#    #+#             */
+/*   Updated: 2019/01/10 12:34:33 by akarasso         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "ft_select.h"
 
 static void	free_opt(void *data)
 {
@@ -38,7 +49,7 @@ static void	ft_delete_option(t_select *select)
 	}
 }
 
-int		ft_backspace(unsigned char *b, t_select *select)
+int			ft_backspace(unsigned char *b, t_select *select)
 {
 	char		*ptr;
 

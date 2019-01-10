@@ -6,7 +6,7 @@
 /*   By: akarasso <akarasso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/06 17:33:34 by akarasso          #+#    #+#             */
-/*   Updated: 2019/01/08 19:28:38 by akarasso         ###   ########.fr       */
+/*   Updated: 2019/01/10 14:05:52 by akarasso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	suspend_signal_handler(void)
 	ioctl(STDERR_FILENO, TIOCSTI, "\x1A");
 }
 
-void 	stop_signal_handler(void)
+void		stop_signal_handler(void)
 {
 	t_select *select;
 
@@ -45,14 +45,14 @@ void		signal_handler(int signo)
 		ft_init_term(select);
 		ft_init_screen(select);
 		ft_init_selection();
-		ft_catch_signal(select);
+		ft_catch_signal();
 		ft_display(select);
 	}
 	else if (signo == SIGWINCH)
 		ft_resize_win(SIGWINCH);
 }
 
-void	ft_catch_signal()
+void		ft_catch_signal(void)
 {
 	signal(SIGWINCH, signal_handler);
 	signal(SIGHUP, signal_handler);
